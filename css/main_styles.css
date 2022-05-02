@@ -1,0 +1,122 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background: rgb(27,100,110);
+    background: linear-gradient(56deg, rgba(27,100,110,1) 38%, rgba(56,135,116,1) 59%, rgba(37,182,179,1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    width: 1200px;
+    height: 600px;
+}
+
+.login__content{
+    width: inherit;
+    height: 500px;
+    display: flex;
+}
+
+.borde__izquierdo{
+    border-right: 1px solid #fff;
+    width: 50%;
+    height: 100%;
+    border-width: thin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login__title{
+    font-size: 50px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.login__name{
+    font-size: 25px;
+    color: #fff;
+    font-style: italic;
+    
+}
+
+
+.borde__derecho{
+    border-left: 1px solid #fff;
+    width: 50%;
+    height: 100%;
+    border-width: thin;
+}
+
+.form__login{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.login__logo{
+    width: 150px;
+    border-radius: 50%;
+    border: 12px solid #fff;
+    padding: 0;
+    margin: 10px;
+}
+
+.input__form{
+    width: 400px;
+    padding: 10px;
+    padding-left: 26px;
+    margin: 10px;
+    outline: none;
+    font-size: 19px;
+    font-style: italic;
+}
+
+.input__form--user{
+    background-image: url(../img/svg__icon/user.svg);
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.input__form--password{
+    background-image: url(../img/svg__icon/key.svg);
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.submit__form{
+    width: 420px;
+    padding: 10px;
+    margin: 10px;
+    color: #fff;
+    background-color: #1b646e;
+    border:none;
+    cursor: pointer;
+}
+
+.submit__form:hover{
+    background-color: chocolate;
+}
+
+.reset{
+    color: #fff;
+}
+
+.reset a{
+    color: rgb(216, 218, 217);
+    text-decoration: none;
+}
+
+.reset a:hover{
+    color: rgb(7, 98, 114);
+}
