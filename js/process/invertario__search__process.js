@@ -17,3 +17,26 @@ function searchComponent(){
 
 
 }
+
+//Start Ubication form register
+$(document).ready(function() {
+    $('#inputBuscar').on('input', function(e) {
+        e.preventDefault();
+
+        var data = $("#FormBuscar").serialize();
+
+        $.ajax({
+            url: '../view/Details__buscar.php',
+            type: 'POST',
+            data: data,
+            success: function(datos) {
+                $('#detallesbuscar div').remove();
+                $('#detallesbuscar').append(datos);
+            }
+
+        });
+
+
+
+    });
+});

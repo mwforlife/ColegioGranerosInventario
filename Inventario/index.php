@@ -126,8 +126,8 @@ require_once '../controller/controller.php';
             
             <div class="header__menu">
                <div class="search">
-                  <form action="">
-                   <input type="text" placeholder="Buscar...." class="form-control buscar">
+                  <form action="#" id="FormBuscar" >
+                   <input type="text" id="inputBuscar" name="campo" placeholder="Buscar...." class="form-control buscar">
                   </form>
                </div>
                 <ul class="header__menu--items">
@@ -145,6 +145,9 @@ require_once '../controller/controller.php';
         </header>
         
         <main class="containr">
+            <div class="" id="detallesbuscar">
+
+            </div>
             <p class="welcome">Bienvenido <span class="user__name"><?php echo $_SESSION['nombre']?></span></p>
             
             <div class="componentes">
@@ -994,7 +997,7 @@ require_once '../controller/controller.php';
             <div class="modal-body">            
             <div class="row justify-content-center">
                 <div id="detalles" class="col-md-12">
-+
+                    
                 </div>
             </div>
             
@@ -1107,6 +1110,9 @@ require_once '../controller/controller.php';
     </div>
   </div>
 </div>
+
+
+
     
           
     <!-------------JAVASCRIPTS-------------------->

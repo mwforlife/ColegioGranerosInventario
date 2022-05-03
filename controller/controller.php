@@ -120,6 +120,28 @@ include '../Model/CGPrestamos.php';
         $this->desconexion();
         return null;
     }
+
+    public function BuscarTodosLosComponentes($campo){
+        $this->conexion();
+        $sql = "SELECT id_comp, folio_comp, nom_comp, nom_ubi, descripcion, observacion, nom_tip_comp, nom_est_comp, nom_sta_comp FROM CGComponentes,CGTipoComponente,EstadoComponentes,CGUbicacion, StatusComponentes where CGComponentes.id_ubi=CGUbicacion.id_ubi and CGComponentes.id_tip_comp=CGTipoComponente.id_tip_comp and CGComponentes.id_est_comp=EstadoComponentes.id_est_comp and CGComponentes.id_sta_comp=StatusComponentes.id_sta_comp and folio_comp like'%$campo%' or nom_comp like'%$campo%' or nom_ubi like'%$campo%' or descripcion like'%$campo%' or observacion like'%$campo%' or nom_tip_comp like'%$campo%' or nom_est_comp like'%$campo%' or nom_sta_comp like'%$campo%' group by id_comp";
+        $resultado = $this->mi->query($sql);
+        $lista = array();
+        while($rs = mysqli_fetch_array($resultado)){
+            $id = $rs['id_comp'];
+            $folio = $rs['folio_comp'];
+            $nom = $rs['nom_comp'];
+            $ubi = $rs['nom_ubi'];
+            $descripcion = $rs['descripcion'];
+            $observacion = $rs['observacion'];
+            $tip = $rs['nom_tip_comp'];
+            $est = $rs['nom_est_comp'];
+            $sta = $rs['nom_sta_comp'];
+            $comp = new CGComponentes($id, $folio, $nom, $ubi, $descripcion, $observacion, $tip, $est, $sta);
+            $lista[] = $comp;
+        }
+        $this->desconexion();
+        return $lista;
+    }
     /***********************Selects***********************************************/
      public function ListarTipoComponente(){
          $this->conexion();
