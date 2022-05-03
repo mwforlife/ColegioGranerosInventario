@@ -1,5 +1,5 @@
 <?php
-include '../controller/Controller.php';
+include '../controller/controller.php';
 
 $id = $_POST['id'];
 

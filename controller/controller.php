@@ -32,7 +32,7 @@ include '../Model/CGPrestamos.php';
      public function CGUSer__login($user, $pass)
      {
          $this->conexion();
-         $sql = "SELECT id_usu,nom_usu,ape_usu,correo, nom_tip, toten, modified FROM CGUser,CGTipo_usuario WHERE CGUser.id_tip=CGTipo_usuario.id_tip and log_usu = '$user' AND pas_usu = '$pass'";
+         $sql = "SELECT id_usu,nom_usu,ape_usu,correo, nom_tip, toten, modified FROM CGuser,CGTipo_usuario WHERE CGuser.id_tip=CGTipo_usuario.id_tip and log_usu = '$user' AND pas_usu = '$pass'";
          $result = $this->mi->query($sql);
          if($rs = mysqli_fetch_array($result))
          {
@@ -54,7 +54,7 @@ include '../Model/CGPrestamos.php';
      public function ListarUsuarios()
      {
          $this->conexion();
-         $sql = "SELECT id_usu,nom_usu,ape_usu,correo,log_usu, pas_usu, nom_tip, toten, modified FROM CGUser,CGTipo_usuario WHERE CGUser.id_tip=CGTipo_usuario.id_tip";
+         $sql = "SELECT id_usu,nom_usu,ape_usu,correo,log_usu, pas_usu, nom_tip, toten, modified FROM CGuser,CGTipo_usuario WHERE CGUser.id_tip=CGTipo_usuario.id_tip";
          $result = $this->mi->query($sql);
          $lista = array();
          while($rs = mysqli_fetch_array($result))
@@ -175,7 +175,7 @@ include '../Model/CGPrestamos.php';
 
      public function ListarUbicacion(){
          $this->conexion();
-         $sql = "SELECT * FROM CGUBicacion";
+         $sql = "SELECT * FROM CGUbicacion";
             $resultado = $this->mi->query($sql);
             $lista = array();
             while($rs = mysqli_fetch_array($resultado)){
@@ -414,7 +414,7 @@ include '../Model/CGPrestamos.php';
 
         public function ListarPrestamos(){
             $this->conexion();
-            $sql = "select id_prest, nom_comp, nom_doc, nom_est_pres, fecha_prest, fecha_dev, cgprestamos.observacion as observacion FROM cgprestamos,cgcomponentes, cgestado_prestamo, cgdocente where cgprestamos.id_comp=cgcomponentes.id_comp and cgprestamos.id_est=cgestado_prestamo.id_est_pres and cgprestamos.id_doc=cgdocente.id_doc;";
+            $sql = "select id_prest, nom_comp, nom_doc, nom_est_pres, fecha_prest, fecha_dev, CGPrestamos.observacion as observacion FROM CGPrestamos,CGComponentes, CGEstado_Prestamo, CGDocente where CGPrestamos.id_comp=CGComponentes.id_comp and CGPrestamos.id_est=CGEstado_prestamo.id_est_pres and CGPrestamos.id_doc=CGDocente.id_doc;";
             $resultado = $this->mi->query($sql);
             $lista = array();
             while($rs = mysqli_fetch_array($resultado)){
@@ -434,7 +434,7 @@ include '../Model/CGPrestamos.php';
 
         public function listarcomponentesEnBodega(){
             $this->conexion();
-            $sql = "select nom_comp as nombre, folio_comp as folio, COUNT(nom_comp) as 'cantidad' from cgcomponentes where id_sta_comp=1 GROUP by nom_comp;";
+            $sql = "select nom_comp as nombre, folio_comp as folio, COUNT(nom_comp) as 'cantidad' from CGComponentes where id_sta_comp=1 GROUP by nom_comp;";
             $resultado = $this->mi->query($sql);
             $lista = array();
             while($rs = mysqli_fetch_array($resultado)){
@@ -456,7 +456,7 @@ include '../Model/CGPrestamos.php';
 
         public function listardebaja(){
             $this->conexion();
-            $sql = "select id_baja, nom_comp, fecha_baja, motivo from debaja, cgcomponentes where debaja.id_comp=cgcomponentes.id_comp;";
+            $sql = "select id_baja, nom_comp, fecha_baja, motivo from deBaja, CGComponentes where deBaja.id_comp=CGComponentes.id_comp;";
             $resultado = $this->mi->query($sql);
             $lista = array();
             while($rs = mysqli_fetch_array($resultado)){
@@ -495,7 +495,7 @@ include '../Model/CGPrestamos.php';
 
         public function InsertarUsuario($nom, $ape, $email, $log, $pas, $id_tip, $toten){
             $this->conexion();
-            $sql = "INSERT INTO CGUser VALUES (null, '$nom', '$ape', '$email', '$log', '$pas', $id_tip, '$toten',null)";
+            $sql = "INSERT INTO CGuser VALUES (null, '$nom', '$ape', '$email', '$log', '$pas', $id_tip, '$toten',null)";
             $resultado = $this->mi->query($sql);
             $this->desconexion();
             return $resultado;
@@ -527,7 +527,7 @@ include '../Model/CGPrestamos.php';
 
         public function InsertarTipo($nom){
             $this->conexion();
-            $sql = "INSERT INTO CGTipocomponente VALUES (null,'$nom')";
+            $sql = "INSERT INTO CGTipoComponente VALUES (null,'$nom')";
             $resultado = $this->mi->query($sql);
             $this->desconexion();
             return json_encode($resultado);
@@ -562,7 +562,7 @@ include '../Model/CGPrestamos.php';
             $resultado = $this->mi->query($sql);
             $this->desconexion();
             $this->conexion();
-            $sql = "DELETE FROM CGdebaja WHERE id_comp=$id";
+            $sql = "DELETE FROM deBaja WHERE id_comp=$id";
             $resultado = $this->mi->query($sql);
             $this->desconexion();
             $this->conexion();
@@ -573,7 +573,7 @@ include '../Model/CGPrestamos.php';
 
         public function EliminarUsuario($id){
             $this->conexion();
-            $sql = "DELETE FROM CGUser WHERE id_usu=$id";
+            $sql = "DELETE FROM CGuser WHERE id_usu=$id";
             $resultado = $this->mi->query($sql);
             $this->desconexion();
         }
