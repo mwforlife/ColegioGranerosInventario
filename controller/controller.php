@@ -425,7 +425,7 @@ include '../Model/Baja.php';
 
         public function InsertarUsuario($nom, $ape, $email, $log, $pas, $id_tip, $toten){
             $this->conexion();
-            $sql = "INSERT INTO CGUsuarios VALUES (null, '$nom', '$ape', '$email', '$log', '$pas', $id_tip, '$toten')";
+            $sql = "INSERT INTO CGUsuarios VALUES (null, '$nom', '$ape', '$email', '$log', '$pas', $id_tip, '$toten',null)";
             $resultado = $this->mi->query($sql);
             $this->desconexion();
             return $resultado;

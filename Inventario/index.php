@@ -74,6 +74,9 @@ require_once '../controller/controller.php';
                     </ul>
                 </li>
 
+                <li class="menu__item"><a href="#" class="menu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrarusuarios"><img src="../img/svg__icon/user1.svg" alt="" class="item__img"> Usuarios</a></li>
+                
+
             </ul>
         </nav>
         </div>
@@ -929,6 +932,61 @@ require_once '../controller/controller.php';
             </div>
         </div>
     </div>
+
+       <!-- Modal Registrar Docente-->
+<div class="modal fade" id="registrarusuarios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><img src="../img/svg__icon/user1.svg" alt="">Registrar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="" id="CGDocente__Form">
+            <div class="modal-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="label">Nombre</div>
+                    <input type="text" class="form-control" name="CGUser__name">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Apellido</label>
+                    <input type="text" class="form-control" name="CGUser__apellido">
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <label >Correo:</label>
+                    <input type="email" name="CGUser__email" placeholder="Ejemplo: 912345678" class="form-control">
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="">Tipo de Usuario</label>
+                    <select name="CGUser__tipo" class="form-control">
+                        <option value="1">Administrador</option>
+                        <option value="2">Usuario</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Login</label>
+                    <input type="text" class="form-control" name="CGUser__login">
+                </div>
+                <div class="col-md-6">
+                    <label for="">Password</label>
+                    <input type="password" class="form-control" name="CGUser__password">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+            <button type="reset" class="btn btn-warning">Restablecer</button>
+                <button type="submit" class="btn btn-success">Registrar</button>
+            </div>
+      </form>
+      
+    </div>
+  </div>
+</div>
+    
           
     <!-------------JAVASCRIPTS-------------------->
     <script src="../js/jquery-3.6.0.js"></script>
