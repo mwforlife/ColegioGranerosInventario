@@ -263,11 +263,91 @@ $(document).ready(function() {
                         confirmButtonText: 'OK',
                       }).then((result) => {
                         /* Read more about isConfirmed, isDenied below */
+                      })
+                }
+            }
+        });
+    });
+});
+
+//Start User Form Register
+$(document).ready(function() {
+    $('#CGUser__Form').on('submit', function(e) {
+        e.preventDefault();
+
+        var data = $("#CGUser__Form").serialize();
+
+        $.ajax({
+            url: '../view/Insert__CGUser.php',
+            type: 'POST',
+            data: data,
+            success: function(datos) {
+                if (datos == "false" || datos == false) {
+                    swal.fire('¡Oh Oh!', 'Hubo Un error, Verifique los datos', 'error');
+                } else if (datos == true || datos == 'true') {
+                    Swal.fire({
+                        title: 'Felicidades ',
+                        text: 'El Ussuario Ha sido registrado con exito',
+                        type: 'success',
+                        confirmButtonText: 'OK',
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
                         if (result.isConfirmed) {
                             window.location = 'index.php';
                         } else if (result.isDenied) {
-                            window.location = 'index.php';
+                            window.location = 'index.php'; 
                         }
+                      })
+                } else {
+                    Swal.fire({
+                        title: 'Ups!',
+                        text: datos,
+                        confirmButtonText: 'OK',
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                      })
+                }
+            }
+        });
+    });
+});
+
+
+//Start Prestamos Form Register
+$(document).ready(function() {
+    $('#PrestamosForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var data = $("#PrestamosForm").serialize();
+
+        $.ajax({
+            url: '../view/Insert__CGPrestamos.php',
+            type: 'POST',
+            data: data,
+            success: function(datos) {
+                if (datos == "false" || datos == false) {
+                    swal.fire('¡Oh Oh!', 'Hubo Un error, Verifique los datos', 'error');
+                } else if (datos == true || datos == 'true') {
+                    Swal.fire({
+                        title: 'Felicidades ',
+                        text: 'El Prestamo Ha sido registrado con exito',
+                        type: 'success',
+                        confirmButtonText: 'OK',
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            window.location = 'index.php';
+                        } else if (result.isDenied) {
+                            window.location = 'index.php'; 
+                        }
+                      })
+                } else {
+                    Swal.fire({
+                        title: 'Ups!',
+                        text: datos,
+                        confirmButtonText: 'OK',
+                      }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
                       })
                 }
             }

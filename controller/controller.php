@@ -9,6 +9,7 @@ include '../Model/TipoComponente.php';
 include '../Model/EstadoComponente.php';
 include '../Model/CGEstadoPrestamo.php';
 include '../Model/Baja.php';
+include '../Model/CGPrestamos.php';
 
  class Controller 
  {
@@ -49,6 +50,53 @@ include '../Model/Baja.php';
          $this->desconexion();
          return "Error de Usuario o Contraseña";
      } 
+     //ListarUsuarios
+     public function ListarUsuarios()
+     {
+         $this->conexion();
+         $sql = "SELECT id_usu,nom_usu,ape_usu,correo,log_usu, pas_usu, nom_tip, toten, modified FROM CGUser,CGTipo_usuario WHERE CGUser.id_tip=CGTipo_usuario.id_tip";
+         $result = $this->mi->query($sql);
+         $lista = array();
+         while($rs = mysqli_fetch_array($result))
+         {
+             $id = $rs['id_usu'];
+             $nombre = $rs['nom_usu'];
+             $apellido = $rs['ape_usu'];
+             $email = $rs['correo'];
+            $tipo = $rs['nom_tip'];
+            $toten = $rs['toten'];
+            $user = $rs['log_usu'];
+            $pass = $rs['pas_usu'];
+            $modified = $rs['modified'];
+            $usu = new CGUser($id, $nombre, $apellido, $email,$user, $pass, $tipo, $toten, $modified);
+            $lista[] = $usu;
+         }
+         $this->desconexion();
+         return $lista;
+     }
+
+     public function buscarUsuario($id){
+        $this->conexion();
+        $sql = "SELECT id_usu,nom_usu,ape_usu,correo,log_usu, pas_usu, id_tip, toten, modified FROM CGUser where id_usu = '$id'";
+        $result = $this->mi->query($sql);
+        if($rs = mysqli_fetch_array($result))
+        {
+            $id = $rs['id_usu'];
+            $nombre = $rs['nom_usu'];
+            $apellido = $rs['ape_usu'];
+            $email = $rs['correo'];
+            $user = $rs['log_usu'];
+            $pass = $rs['pas_usu'];
+            $tipo = $rs['id_tip'];
+            $toten = $rs['toten'];
+            $modified = $rs['modified'];
+            $usu = new CGUser($id, $nombre, $apellido, $email,$user, $pass, $tipo, $toten, $modified);
+            $this->desconexion();
+            return $usu;
+        }
+        $this->desconexion();
+        return "Error de Usuario o Contraseña";
+     }
     /******************************************************************************************************* */
     /************************Search************************************* */
     public function BuscarComponentes($id){
@@ -349,9 +397,9 @@ include '../Model/Baja.php';
             $lista = array();
             while($rs = mysqli_fetch_array($resultado)){
                 $id = $rs['id_prest'];
-                $id_comp = $rs['id_comp'];
-                $id_doc = $rs['id_doc'];
-                $id_est = $rs['id_est'];
+                $id_comp = $rs['nom_comp'];
+                $id_doc = $rs['nom_doc'];
+                $id_est = $rs['nom_est_pres'];
                 $fecha_prest = $rs['fecha_prest'];
                 $fecha_dev = $rs['fecha_dev'];
                 $observacion = $rs['observacion'];
@@ -425,7 +473,7 @@ include '../Model/Baja.php';
 
         public function InsertarUsuario($nom, $ape, $email, $log, $pas, $id_tip, $toten){
             $this->conexion();
-            $sql = "INSERT INTO CGUsuarios VALUES (null, '$nom', '$ape', '$email', '$log', '$pas', $id_tip, '$toten',null)";
+            $sql = "INSERT INTO CGUser VALUES (null, '$nom', '$ape', '$email', '$log', '$pas', $id_tip, '$toten',null)";
             $resultado = $this->mi->query($sql);
             $this->desconexion();
             return $resultado;
@@ -497,6 +545,20 @@ include '../Model/Baja.php';
             $this->desconexion();
             $this->conexion();
             $sql = "DELETE FROM CGComponentes WHERE id_comp=$id";
+            $resultado = $this->mi->query($sql);
+            $this->desconexion();
+        }
+
+        public function EliminarUsuario($id){
+            $this->conexion();
+            $sql = "DELETE FROM CGUser WHERE id_usu=$id";
+            $resultado = $this->mi->query($sql);
+            $this->desconexion();
+        }
+
+        public function EliminarDocente($id){
+            $this->conexion();
+            $sql = "DELETE FROM CGDocente WHERE id_doc=$id";
             $resultado = $this->mi->query($sql);
             $this->desconexion();
         }

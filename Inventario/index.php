@@ -29,6 +29,26 @@ require_once '../controller/controller.php';
     <link rel="stylesheet" href="css/inventario_main_styles.css">
 </head>
 <body>
+
+
+<script src="../js/jquery-3.6.0.js"></script>
+    <script src="../js/anime.min.js"></script>
+    <script src="../js/bootstrap.bundle.js"></script>
+    <script src="../js/sweetalert2.all.min.js"></script>
+    <script src="js/Databales_bootstap5.js"></script>
+    <script src="js/jquery.dataTables.js"></script>
+    <script src="js/inventario_main_js.js"></script>
+    <script src="../js/MooTools-Core-1.6.0.js"></script>
+    <script src="../js/process/inventario__insert__process.js"></script>
+    <script src="../js/process/inventario__list__process.js"></script>
+    <script src="../js/process/inventario__delete__process.js"></script>
+    <script src="../js/process/inventario__modify__process.js"></script>
+    <script src="../js/process/Inventario__details__component.js"></script>
+    <script src="../js/process/invertario__search__process.js"></script>
+
+
+
+    
     <div class="border__left">
     <div class="border__left-content">
         <div class="logo__picture">
@@ -41,7 +61,14 @@ require_once '../controller/controller.php';
 
                 <li class="menu__item"><a href="#" class="menu__link"><img src="../img/svg__icon/component.svg" alt="" class="item__img">Componentes</a>
                     <ul class="submenu__items">
-                        <li class="submenu__item"><a href="#" type="button" data-bs-toggle="modal" data-bs-target="#addcomponent" class="submenu__link">Agregar Componente</a></li>
+                        <?php
+                            if ($_SESSION['tipo'] == "Administrador") {
+                                echo '<li class="submenu__item"><a href="#" type="button" data-bs-toggle="modal" data-bs-target="#addcomponent" class="submenu__link">Agregar Componente</a></li>';
+
+                            }
+                                
+                            
+                        ?>
                         <li class="submenu__item"><a href="#" class="submenu__link" type="button" data-bs-toggle="modal" data-bs-target="#componentlist">Lista de componentes</a></li>
                     </ul>
                 </li>
@@ -52,7 +79,12 @@ require_once '../controller/controller.php';
 
                 <li class="menu__item"><a href="#" class="menu__link"><img src="../img/svg__icon/docente.svg" alt="" class="item__img">Docentes</a>
                     <ul class="submenu__items">
-                        <li class="submenu__item"><a href="#"  type="button" data-bs-toggle="modal" data-bs-target="#registrardocente"  class="submenu__link">Registrar Docentes</a></li>
+                        <?php
+                            if ($_SESSION['tipo'] == "Administrador") {
+                                echo '<li class="submenu__item"><a href="#"  type="button" data-bs-toggle="modal" data-bs-target="#registrardocente"  class="submenu__link">Registrar Docentes</a></li>';
+                            }
+
+                        ?>
                         <li class="submenu__item"><a href="" class="submenu__link"  type="button" data-bs-toggle="modal" data-bs-target="#listardocente" >Lista de Docentes</a></li>
                     </ul>
                 </li>
@@ -66,18 +98,21 @@ require_once '../controller/controller.php';
                 <li class="menu__item"><a href="#" class="menu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrarprestamo"><img src="../img/svg__icon/credit.svg" alt="" class="item__img"> Prestamos</a></li>
                 
                 
-                <li class="menu__item"><a href="#" class="menu__link"><img src="../img/svg__icon/categorias.svg" alt="" class="item__img"> Categorias</a>
-                    <ul class="submenu__items">
-                        <li class="submenu__item"><a href="#" class="submenu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrarestado">Nuevo Estado</a></li>
-                        <li class="submenu__item"><a href="#" class="submenu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrartipo">Nuevo Tipo</a></li>
-                        <li class="submenu__item"><a href="#" class="submenu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrarstatus">Nuevo Status</a></li>
-                    </ul>
-                </li>
 
-                <li class="menu__item"><a href="#" class="menu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrarusuarios"><img src="../img/svg__icon/user1.svg" alt="" class="item__img"> Usuarios</a></li>
-                
-
-            </ul>
+                <?php
+                if ($_SESSION['tipo'] == "Administrador") {
+                    echo '
+                    <li class="menu__item"><a href="#" class="menu__link"><img src="../img/svg__icon/categorias.svg" alt="" class="item__img"> Categorias</a>
+                        <ul class="submenu__items">
+                            <li class="submenu__item"><a href="#" class="submenu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrarestado">Estado</a></li>
+                            <li class="submenu__item"><a href="#" class="submenu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrartipo">Tipo</a></li>
+                            <li class="submenu__item"><a href="#" class="submenu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrarstatus"> Status</a></li>
+                        </ul>
+                    </li>   
+                    <li class="menu__item"><a href="#" class="menu__link" type="button" data-bs-toggle="modal" data-bs-target="#registrarusuarios"><img src="../img/svg__icon/user1.svg" alt="" class="item__img"> Usuarios</a></li>';
+                }
+                ?>
+              </ul>
         </nav>
         </div>
     </div>
@@ -124,8 +159,12 @@ require_once '../controller/controller.php';
                             <th>Estado</th>
                             <th>Ubicacion</th>
                             <th>Detalles</th>
-                            <th>Modificar</th>
-                            <th >Eliminar</th>
+
+                            <?php
+                            if ($_SESSION['tipo'] == "Administrador") {
+                                echo '<th>Eliminar</th>';
+                            }
+                            ?>
                         </tr>
                      </thead>
                     <tbody>
@@ -141,9 +180,11 @@ require_once '../controller/controller.php';
                                 echo "<td>".$CGC->getEstado()."</td>";
                                 echo "<td>".$CGC->getUbicacion()."</td>";
                                 echo "<td><span class='badge bg-success'><a href='#' type='button' data-bs-toggle='modal' data-bs-target='#modaldetails' onclick='details(".$CGC->getId().")'><img src='../img/svg__icon/details.svg' alt=''></a></span></td>";
-                                echo "<td><span class='badge bg-warning'><a href='#' type='button' data-bs-toggle='modal' data-bs-target='#modalmodify' onclick='modificar(".$CGC->getId().")'><img src='../img/svg__icon/edit.svg' alt=''></a></span></td>";
-                                echo "<td><span class='badge bg-danger'><a href='#' onclick='delete__component(".$CGC->getId().")'><img src='../img/svg__icon/delete.svg' alt=''></a></span></td>";
-                                echo "</tr>";
+                                
+                                if ($_SESSION['tipo'] == "Administrador") {
+                                    echo "<td><span class='badge bg-danger'><a href='#' onclick='delete__component(".$CGC->getId().")'><img src='../img/svg__icon/delete.svg' alt=''></a></span></td>";
+                                }
+                                 echo "</tr>";
 
                                 
                             }
@@ -181,9 +222,9 @@ require_once '../controller/controller.php';
                                     $CGC = $lista[$i];
                                     echo "<tr>";
                                     echo "<td>".$CGC->getId()."</td>";
-                                    echo "<td>".$CGC->getId_Com()."</td>";
-                                    echo "<td>".$CGC->getId_Doc()."</td>";
-                                    echo "<td>".$CGC->getFecha()."</td>";
+                                    echo "<td>".$CGC->getId_com()."</td>";
+                                    echo "<td>".$CGC->getId_doc()."</td>";
+                                    echo "<td>".$CGC->getFecha_prest()."</td>";
                                     echo "</tr>";
                                 }
                             }else{
@@ -375,8 +416,11 @@ require_once '../controller/controller.php';
                             <th>Estado</th>
                             <th>Ubicacion</th>
                             <th>Detalles</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <?php
+                            if ($_SESSION['tipo']=='Administrador') {
+                               echo '<th>Eliminar</th>';
+                            }
+                            ?>
                         </tr>
                      </thead>
                     <tbody>
@@ -392,8 +436,10 @@ require_once '../controller/controller.php';
                                 echo "<td>".$CGC->getEstado()."</td>";
                                 echo "<td>".$CGC->getUbicacion()."</td>";
                                 echo "<td><span class='badge bg-success'><a href='#' type='button' data-bs-toggle='modal' data-bs-target='#modaldetails' onclick='details(".$CGC->getId().")'><img src='../img/svg__icon/details.svg' alt=''></a></span></td>";
-                                echo "<td><span class='badge bg-warning'><a href='#' type='button' data-bs-toggle='modal' data-bs-target='#modalmodify' onclick='modificar(".$CGC->getId().")'><img src='../img/svg__icon/edit.svg' alt=''></a></span></td>";
-                                echo "<td><span class='badge bg-danger'><a href='#' onclick='delete__component(".$CGC->getId().")'><img src='../img/svg__icon/delete.svg' alt=''></a></span></td>";
+                                if ($_SESSION['tipo']=='Administrador') {
+                                    echo "<td><span class='badge bg-danger'><a href='#' onclick='delete__component(".$CGC->getId().")'><img src='../img/svg__icon/delete.svg' alt=''></a></span></td>";
+                                
+                                 }
                                 echo "</tr>";
                             }
                         }
@@ -471,7 +517,6 @@ require_once '../controller/controller.php';
                        <th>Nombre</th>
                        <th>Apellido</th>
                        <th>Numero de contacto</th>
-                       <th>Modificar</th>
                        <th>Eliminar</th>
                    </tr>
                </thead>
@@ -484,7 +529,6 @@ require_once '../controller/controller.php';
                        echo "<td>".$CGDocente->getNombre()."</td>";
                        echo "<td>".$CGDocente->getApellido()."</td>";
                        echo "<td>".$CGDocente->getContacto()."</td>";
-                       echo "<td><span class='badge bg-warning'><a href='#' type='button' data-bs-toggle='modal' data-bs-target='#modalmodify' onclick='modificar(".$CGDocente->getId().")'><img src='../img/svg__icon/edit.svg' alt=''></a></span></td>";
                        echo "<td><span class='badge bg-danger'><a href='#' onclick='delete__docente(".$CGDocente->getId().")'><img src='../img/svg__icon/delete.svg' alt=''></a></span></td>";
                        echo "</tr>";
                    }
@@ -554,32 +598,37 @@ require_once '../controller/controller.php';
                
    <!-- Modal Registrar Ubicacion-->
 <div class="modal fade" id="registrarubicacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title"><img src="../img/svg__icon/new.svg" alt="">Registrar Ubicacion</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-          <form action="" id="UbicacionForm">
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    <div class="label">Ubicacion</div>
-                    <input name="UbicacionName" id="UbicacionName" type="text" class="form-control">
-                </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-4 text-center ">
-                    <button type="reset" class="btn btn-warning">Restablecer</button>
-                        <button type="submit" class="btn btn-success ">Registrar</button>
-                        
-                    </div>
-                </div>
-          </form>
+          <?php
+          if ($_SESSION['tipo'] == "Administrador") {
+              echo '<form action="" id="UbicacionForm">
+              <div class="row justify-content-center">
+                  <div class="col-md-4">
+                      <div class="label">Ubicacion</div>
+                      <input name="UbicacionName" id="UbicacionName" type="text" class="form-control">
+                  </div>
+                  </div>
+                  <div class="row justify-content-center">
+                      <div class="col-md-4 text-center ">
+                      <button type="reset" class="btn btn-warning">Restablecer</button>
+                          <button type="submit" class="btn btn-success ">Registrar</button>
+                          
+                      </div>
+                  </div>
+            </form>';
+          }
+          ?>
+          
         <hr class="w-100">
       <div class="row">
           <div class="col-md-12">
-              <table class="table table-dark table-striped caption-top">
+              <table id="tabla__ubicacion" class="table table-dark table-striped caption-top text-center">
                 <caption>Lista de Ubicaciones</caption>
                   <thead>
                       <tr>
@@ -813,7 +862,11 @@ require_once '../controller/controller.php';
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" id="UbicacionForm">
+
+            <?php
+            if ($_SESSION['tipo']=='Administrador') {
+                echo '
+                <form action="" id="PrestamosForm" name="PrestamosForm">
                     <div class="row justify-content-center">
                         <div class="col-md-6">
                         <label class="label< w-100">ID Componente</label>
@@ -827,7 +880,7 @@ require_once '../controller/controller.php';
                         </div>
                         </div>
                         <div class="row">
-                            <div class="col detalles__prestamos">
+                            <div class="col detalles__prestamos" id="detalles__componente">
 
                             </div>
                         </div>
@@ -837,13 +890,13 @@ require_once '../controller/controller.php';
                                 <label for="">Prestatario</label>
                                 <select autocomplete="TRUE" name="CGPrestatario__Component" id="CGPrestatario__Component" class="form-control">
                                     <option value="0">Seleccione el prestatario</option>
-                                    <?php
-                                    $lista = $c->ListarDocente();
-                                    for ($i=0; $i < count($lista); $i++) { 
-                                        $CGCU = $lista[$i];
-                                        echo "<option value='".$CGCU->getId()."'>".$CGCU->getNombre()." ".$CGCU->getApellido()."</option>";                                        
-                                    }
-                                    ?>
+                                   ';
+                                   $lista = $c->ListarDocente();
+                                   for ($i=0; $i < count($lista); $i++) { 
+                                       $CGCU = $lista[$i];
+                                       echo "<option value='".$CGCU->getId()."'>".$CGCU->getNombre()." ".$CGCU->getApellido()."</option>";                                        
+                                   }
+                echo '
                                 </select>
                             </div>
                             <div class="row justify-content-center">
@@ -851,6 +904,10 @@ require_once '../controller/controller.php';
                                     <label for="">Fecha de Prestamo</label>
                                     <input type="date" name="CGFecha__Prestamos" class="form-control">
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="">Observacion</label>
+                                <textarea name="CGObservacion__Prestamos" id="CGObservacion__Prestamos" cols="30" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
 
@@ -862,7 +919,9 @@ require_once '../controller/controller.php';
                                 
                             </div>
                         </div>
-                </form>
+                </form>';
+            }
+            ?>
                 <hr class="w-100">
             <div class="row">
                 <div class="col-md-12">
@@ -876,25 +935,40 @@ require_once '../controller/controller.php';
                                 <th>Fecha de Prestamo</th>
                                 <th>Fecha de Devolucion</th>
                                 <th>Estado</th>
+                                <?php
+                                if ($_SESSION['tipo']=='Administrador') {
+                                    echo '<th>Acciones</th>';
+                                }
+                                ?>
+                                
                                 
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $lista = $c->ListarPrestamos();
-
-                            for ($i=0; $i < count($lista) ; $i++) { 
                             
-                            }
                             if (count($lista)>0) {
                                 for ($i=0; $i < count($lista); $i++) { 
-                                    $CGCU = $lista[$i];
+                                    $CGP = $lista[$i];
                                     echo "<tr>";
-                                        echo "<td>".$CGCU->getId()."</td>";
-                                        echo "<td>".$CGCU->getNombre()."</td>";
-                                        echo "<td><span class='badge bg-danger'><a href='#' onclick='deletestatus(".$CGC->getId().")'><img src='../img/svg__icon/delete.svg' alt=''></a></span></td>";
+                                        echo "<td>".$CGP->getId()."</td>";
+                                        echo "<td>".$CGP->getId_com()."</td>";
+                                        echo "<td>".$CGP->getId_doc()."</td>";
+                                        echo "<td>".$CGP->getFecha_prest()."</td>";
+                                        echo "<td>".$CGP->getFecha_Dev()."</td>";
+                                        echo "<td>".$CGP->getId_est()."</td>";
+                                        if ($_SESSION['tipo']=='Administrador') {
+                                            echo "<td>
+                                                <button type='button' class='btn btn-success' onclick='editPrestamo(".$CGP->getId().")'><img width='20' src='../img/svg__icon/edit.svg'></button>
+                                             </td>";
+                                        }
                                     echo "</tr>";
                                 }
+                            }else{
+                                echo "<tr>";
+                                    echo "<td colspan='7' class='text-center'>No hay registros</td>";
+                                echo "</tr>";
                             }
                             
                             ?>
@@ -920,7 +994,7 @@ require_once '../controller/controller.php';
             <div class="modal-body">            
             <div class="row justify-content-center">
                 <div id="detalles" class="col-md-12">
-
++
                 </div>
             </div>
             
@@ -933,7 +1007,7 @@ require_once '../controller/controller.php';
         </div>
     </div>
 
-       <!-- Modal Registrar Docente-->
+       <!-- Modal Registrar Usuarios-->
 <div class="modal fade" id="registrarusuarios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -941,16 +1015,16 @@ require_once '../controller/controller.php';
         <h5 class="modal-title"><img src="../img/svg__icon/user1.svg" alt="">Registrar Usuario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="" id="CGDocente__Form">
+      <form action="#" id="CGUser__Form">
             <div class="modal-body">
             <div class="row">
                 <div class="col-md-6">
                     <div class="label">Nombre</div>
-                    <input type="text" class="form-control" name="CGUser__name">
+                    <input type="text" class="form-control" placeholder="Ingrese el nombre" name="CGUser__nombre">
                 </div>
                 <div class="col-md-6">
                     <label for="">Apellido</label>
-                    <input type="text" class="form-control" name="CGUser__apellido">
+                    <input type="text" class="form-control" placeholder="Ingrese el apellido" name="CGUser__apellido">
                 </div>
             </div>
             
@@ -969,38 +1043,72 @@ require_once '../controller/controller.php';
                 </div>
                 <div class="col-md-6">
                     <label for="">Login</label>
-                    <input type="text" class="form-control" name="CGUser__login">
+                    <input type="text" class="form-control" placeholder="Ingrese el login" name="CGUser__login">
                 </div>
                 <div class="col-md-6">
                     <label for="">Password</label>
-                    <input type="password" class="form-control" name="CGUser__password">
+                    <input type="password" class="form-control" placeholder="Ingrese la Contraseña" name="CGUser__password">
                 </div>
             </div>
-
-            <div class="modal-footer">
-            <button type="reset" class="btn btn-warning">Restablecer</button>
+            <div class="row">
+                <div class="col d-flex justify-content-end gap-3">
+                <button type="reset" class="btn btn-warning">Restablecer</button>
                 <button type="submit" class="btn btn-success">Registrar</button>
+                </div>
             </div>
+            
       </form>
-      
+      <div class="modal-footer justify-content-center">
+          <div class="row justify-content-center">
+              <div class="col-md-12 d-flex justify-content-center">
+              <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo</th>
+                        <th>Tipo de Usuario</th>
+                        <th>Login</th>
+                        <th>Modificar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $lista = $c->ListarUsuarios();
+
+                    for ($i=0; $i < count($lista) ; $i++) { 
+                    
+                    }
+                    if (count($lista)>0) {
+                        for ($i=0; $i < count($lista); $i++) { 
+                            $CGCU = $lista[$i];
+                            echo "<tr>";
+                                echo "<td>".$CGCU->getId()."</td>";
+                                echo "<td>".$CGCU->getNombre()."</td>";
+                                echo "<td>".$CGCU->getApellido()."</td>";
+                                echo "<td>".$CGCU->getEmail()."</td>";
+                                echo "<td>".$CGCU->getTipo()."</td>";
+                                echo "<td>".$CGCU->getLogin()."</td>";
+                                echo "<td><span class='badge bg-warning'><a href='#' onclick='modificarusuario(".$CGCU->getId().")'><img src='../img/svg__icon/edit.svg' alt=''></a></span></td>";
+                                echo "<td><span class='badge bg-danger'><a href='#' onclick='deleteuser(".$CGCU->getId().")'><img src='../img/svg__icon/delete.svg' alt=''></a></span></td>";
+                            echo "</tr>";
+                        }
+                    }
+                    
+                    ?>
+                </tbody>
+            
+            </table>
+              </div>
+          </div>
+      </div>
     </div>
   </div>
 </div>
     
           
     <!-------------JAVASCRIPTS-------------------->
-    <script src="../js/jquery-3.6.0.js"></script>
-    <script src="../js/anime.min.js"></script>
-    <script src="../js/bootstrap.bundle.js"></script>
-    <script src="../js/sweetalert2.all.min.js"></script>
-    <script src="js/Databales_bootstap5.js"></script>
-    <script src="js/jquery.dataTables.js"></script>
-    <script src="js/inventario_main_js.js"></script>
-    <script src="../js/MooTools-Core-1.6.0.js"></script>
-    <script src="../js/process/inventario__insert__process.js"></script>
-    <script src="../js/process/inventario__list__process.js"></script>
-    <script src="../js/process/inventario__delete__process.js"></script>
-    <script src="../js/process/inventario__modify__process.js"></script>
-    <script src="../js/process/Inventario__details__component.js"></script>
 </body>
 </html>
