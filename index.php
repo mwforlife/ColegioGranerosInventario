@@ -30,12 +30,12 @@ if(isset($_SESSION['id_usu'])){
        <div class="login">
            <div class="login__content">
                <div class="borde__izquierdo">
-                    <img src="img/logo/log.png" width="150" alt="">
+                    <img class="" src="img/logo/log.png" width="150" alt="">
                    <h3 class="login__title">Colegio Graneros</h3>
                    <h4 class="login__name">Sistema de Inventario</h4>
                </div>
                <div class="borde__derecho">
-                  <form action="" class="form__login">    
+                  <form action="" class="form__login">  
                    <img src="img/svg__icon/login.svg" alt="" class="login__logo">
                    <input type="text" id="txtusu" placeholder="Nombre de Usuario" class="input__form input__form--user">
                    <input type="password" id="txtpas" placeholder="Contraseña" class="input__form input__form--password">

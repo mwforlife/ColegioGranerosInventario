@@ -123,7 +123,7 @@ include '../Model/CGPrestamos.php';
 
     public function BuscarTodosLosComponentes($campo){
         $this->conexion();
-        $sql = "SELECT id_comp, folio_comp, nom_comp, nom_ubi, descripcion, observacion, nom_tip_comp, nom_est_comp, nom_sta_comp FROM CGComponentes,CGTipoComponente,EstadoComponentes,CGUbicacion, StatusComponentes where CGComponentes.id_ubi=CGUbicacion.id_ubi and CGComponentes.id_tip_comp=CGTipoComponente.id_tip_comp and CGComponentes.id_est_comp=EstadoComponentes.id_est_comp and CGComponentes.id_sta_comp=StatusComponentes.id_sta_comp and folio_comp like'%$campo%' or nom_comp like'%$campo%' or nom_ubi like'%$campo%' or descripcion like'%$campo%' or observacion like'%$campo%' or nom_tip_comp like'%$campo%' or nom_est_comp like'%$campo%' or nom_sta_comp like'%$campo%' group by id_comp";
+        $sql = "SELECT id_comp, folio_comp, nom_comp, nom_ubi, descripcion, observacion, nom_tip_comp, nom_est_comp, nom_sta_comp FROM CGComponentes,CGTipoComponente,EstadoComponentes,CGUbicacion, StatusComponentes where CGComponentes.id_ubi=CGUbicacion.id_ubi and CGComponentes.id_tip_comp=CGTipoComponente.id_tip_comp and CGComponentes.id_est_comp=EstadoComponentes.id_est_comp and CGComponentes.id_sta_comp=StatusComponentes.id_sta_comp and folio_comp like'%$campo%' or  descripcion like'%$campo%' or observacion like'%$campo%' or nom_comp like'%$campo%' group by id_comp order by nom_comp";
         $resultado = $this->mi->query($sql);
         $lista = array();
         while($rs = mysqli_fetch_array($resultado)){
@@ -245,7 +245,30 @@ include '../Model/CGPrestamos.php';
 
         public function ListarComponentes1(){
             $this->conexion();
-            $sql = "SELECT id_comp, folio_comp, nom_comp, nom_ubi, descripcion, observacion, nom_tip_comp, nom_est_comp, nom_sta_comp FROM CGComponentes,CGUbicacion, CGTipoComponente, EstadoComponentes, StatusComponentes WHERE CGComponentes.id_ubi = CGUbicacion.id_ubi AND CGComponentes.id_tip_comp = CGTipoComponente.id_tip_comp AND CGComponentes.id_est_comp = EstadoComponentes.id_est_comp AND CGComponentes.id_sta_comp = StatusComponentes.id_sta_comp";
+            $sql = "SELECT id_comp, folio_comp, nom_comp, nom_ubi, descripcion, observacion, nom_tip_comp, nom_est_comp, nom_sta_comp FROM CGComponentes,CGUbicacion, CGTipoComponente, EstadoComponentes, StatusComponentes WHERE CGComponentes.id_ubi = CGUbicacion.id_ubi AND CGComponentes.id_tip_comp = CGTipoComponente.id_tip_comp AND CGComponentes.id_est_comp = EstadoComponentes.id_est_comp AND CGComponentes.id_sta_comp = StatusComponentes.id_sta_comp order by id_comp";
+            $resultado = $this->mi->query($sql);
+            $lista = array();
+            while($rs = mysqli_fetch_array($resultado)){
+                $id = $rs['id_comp'];
+                $folio = $rs['folio_comp'];
+                $nom = $rs['nom_comp'];
+                $ubi = $rs['nom_ubi'];
+                $descripcion = $rs['descripcion'];
+                $observacion = $rs['observacion'];
+                $tip = $rs['nom_tip_comp'];
+                $est = $rs['nom_est_comp'];
+                $sta = $rs['nom_sta_comp'];
+                $comp = new CGComponentes($id, $folio, $nom, $ubi, $descripcion, $observacion, $tip, $est, $sta);
+                $lista[] = $comp;
+            }
+            $this->desconexion();
+            return $lista;
+        }
+
+        
+        public function ListarComponentesporType($tipo){
+            $this->conexion();
+            $sql = "SELECT id_comp, folio_comp, nom_comp, nom_ubi, descripcion, observacion, nom_tip_comp, nom_est_comp, nom_sta_comp FROM CGComponentes,CGUbicacion, CGTipoComponente, EstadoComponentes, StatusComponentes WHERE CGComponentes.id_ubi = CGUbicacion.id_ubi AND CGComponentes.id_tip_comp = CGTipoComponente.id_tip_comp AND CGComponentes.id_est_comp = EstadoComponentes.id_est_comp AND CGComponentes.id_sta_comp = StatusComponentes.id_sta_comp and CGComponentes.id_tip_comp = '$tipo' order by nom_comp";
             $resultado = $this->mi->query($sql);
             $lista = array();
             while($rs = mysqli_fetch_array($resultado)){
@@ -414,13 +437,13 @@ include '../Model/CGPrestamos.php';
 
         public function ListarPrestamos(){
             $this->conexion();
-            $sql = "select id_prest, nom_comp, nom_doc, nom_est_pres, fecha_prest, fecha_dev, CGPrestamos.observacion as observacion FROM CGPrestamos,CGComponentes, CGEstado_Prestamo, CGDocente where CGPrestamos.id_comp=CGComponentes.id_comp and CGPrestamos.id_est=CGEstado_prestamo.id_est_pres and CGPrestamos.id_doc=CGDocente.id_doc;";
+            $sql = "select id_prest, nom_comp, nom_doc,ape_doc, nom_est_pres, fecha_prest, fecha_dev, CGPrestamos.observacion as observacion FROM CGPrestamos,CGComponentes, CGEstado_Prestamo, CGDocente where CGPrestamos.id_comp=CGComponentes.id_comp and CGPrestamos.id_est=CGEstado_prestamo.id_est_pres and CGPrestamos.id_doc=CGDocente.id_doc;";
             $resultado = $this->mi->query($sql);
             $lista = array();
             while($rs = mysqli_fetch_array($resultado)){
                 $id = $rs['id_prest'];
                 $id_comp = $rs['nom_comp'];
-                $id_doc = $rs['nom_doc'];
+                $id_doc = $rs['nom_doc'] . " " . $rs['ape_doc'];
                 $id_est = $rs['nom_est_pres'];
                 $fecha_prest = $rs['fecha_prest'];
                 $fecha_dev = $rs['fecha_dev'];
@@ -434,7 +457,7 @@ include '../Model/CGPrestamos.php';
 
         public function listarcomponentesEnBodega(){
             $this->conexion();
-            $sql = "select nom_comp as nombre, folio_comp as folio, COUNT(nom_comp) as 'cantidad' from CGComponentes where id_sta_comp=1 GROUP by nom_comp;";
+            $sql = "select nom_comp as nombre, folio_comp as folio, COUNT(nom_comp) as 'cantidad' from CGComponentes where id_sta_comp=1 GROUP by nom_comp order by nom_comp;";
             $resultado = $this->mi->query($sql);
             $lista = array();
             while($rs = mysqli_fetch_array($resultado)){

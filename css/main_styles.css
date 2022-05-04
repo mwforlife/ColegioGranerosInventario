@@ -120,3 +120,21 @@
 .reset a:hover{
     color: rgb(7, 98, 114);
 }
+
+@media (max-width: 1200px){
+    .login__content{
+        display: grid;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .login__content div{
+        width: 100%;
+        border: none;
+    }
+
+    .login__logo{
+        display: none;
+    }
+    
+}

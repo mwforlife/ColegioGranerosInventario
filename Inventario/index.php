@@ -133,7 +133,7 @@ require_once '../controller/controller.php';
                 <ul class="header__menu--items">
                     <li class="header__menu--item"><a onclick="kaishi()" href="#" class="header__menu--link"><img src="../img/svg__icon/fullscreen.svg" alt="" class="header__menu--img" title="Pantalla Completa"></a></li>
                     
-                    <li class="header__menu--item"><a href="#" title="Reporte" class="header__menu--link"><img src="../img/svg__icon/report.svg" alt="" class="header__menu--img"></a></li>
+                    <li class="header__menu--item"><a href="#" title="Reporte" type="button" data-bs-toggle="modal" data-bs-target="#modalreport" class="header__menu--link"><img src="../img/svg__icon/report.svg" alt="" class="header__menu--img"></a></li>
                     
                     <li class="header__menu--item"><a href="#" class="header__menu--link"><img src="../img/svg__icon/user1.svg" alt="" class="header__menu--img"> <?php echo $_SESSION['nombre']?> <img src="../img/svg__icon/arrowbottom.svg" alt=""></a>
                     <ul class="header__submenu__items">
@@ -150,9 +150,9 @@ require_once '../controller/controller.php';
             </div>
             <p class="welcome">Bienvenido <span class="user__name"><?php echo $_SESSION['nombre']?></span></p>
             
-            <div class="componentes">
+            <div class="componentes row">
                
-                <div class="recientes container__bg card w-100">
+                <div class="recientes container__bg card col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <h3 class="card__title text-white">Componentes</h3>
                     <table id="recent-component" class="table table-dark table-striped text-center">
                        <thead>
@@ -203,9 +203,9 @@ require_once '../controller/controller.php';
                     </table>
                 </div>
             </div>
-            
-            <div class="componentes">
-                <div class="card w-50 container__bg content">
+
+            <div class="componentes row">
+                <div class="card col-md-12 col-lg-12 col-xl-6 container__bg content">
                    <h3 class="card__title text-white">Componentes en Prestamos</h3>
                     <table class="table table-dark table-striped">
                         <thead>
@@ -241,7 +241,7 @@ require_once '../controller/controller.php';
                 </div>
                 
                 
-                <div class="bodega container__bg">
+                <div class="bodega container__bg col-md-12 col-lg-12 col-xl-5">
                     <h3 class="card__title text-white">Componentes en bodega</h3>
                     <table class="table table-dark table-striped table-responsive text-center">
                         <thead >
@@ -275,7 +275,7 @@ require_once '../controller/controller.php';
                     </table>
                 </div>
                 
-                <div class="card w-100 container__bg content">
+                <div class="card col-md-12 col-lg-12 col-xl-12 container__bg content">
                    <h3 class="card__title text-white">Componentes dado de baja</h3>
                     <table class="table table-dark table-striped">
                         <thead>
@@ -1000,6 +1000,72 @@ require_once '../controller/controller.php';
                     
                 </div>
             </div>
+            
+            <div class="modal-footer">
+            </div>
+
+                    
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal modal Reporte-->
+    <div class="modal fade" id="modalreport" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><img src="../img/svg__icon/report.svg">Reportes</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">            
+            <div class="row justify-content-center">
+                <div class="col-md-12 d-flex flex-column justify-content-center align-items-center">
+                    <a target="_blank" href="../reportes/ComponentList.php" class="btn btn-success btn-lg btn-block w-100">Listar todos los componentes</a>
+                    <a target="_blank" href="../reportes/ComponentBodega.php" class="btn btn-secondary btn-lg btn-block w-100">Componentes en Bodega</a>
+                    <a target="_blank" href="../reportes/ComponentPrestamo.php" class="btn btn-danger btn-lg btn-block w-100">Componentes en Prestamo</a>
+                </div>
+            </div>
+
+            <?php
+            if ($_SESSION['tipo']=='Administrador') {
+                echo '<div class="row justify-content-center">
+                    <div class="col-md-12 d-flex flex-column justify-content-center align-items-center">
+                        <a target="_blank" href="../reportes/Userlist.php" class="btn btn-warning btn-lg btn-block w-100">Listar todos los Usuaios</a>
+                    </div>
+                </div>';
+            }
+            ?>
+
+
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-center">Reportes personalizadas</h3>
+                </div>
+            </div>
+
+            <form id="FormReporte" target="_blank" method="post" action="../reportes/ComponentType.php">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Seleccione el tipo de componente </label>
+                            <select class="form-control" id="tipo" name="tipo">
+                                <?php
+                                $lista = $c->ListarTipoComponente();
+                                if (count($lista)>0) {
+                                    for ($i=0; $i < count($lista); $i++) {
+                                        $CGP = $lista[$i];
+                                        echo "<option value='".$CGP->getId()."'>".$CGP->getNombre()."</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <button type="submit" class="btn btn-lg btn-success btn-block w-100">Imprimir</button>
+                        </div>
+                    </div>    
+                </div>
+            </form>
             
             <div class="modal-footer">
             </div>

@@ -227,7 +227,6 @@ body{
     margin: 5px;
 }
 .recientes{
-    width: 60%;
     min-width: 500px;
     height: auto;
     padding: 20px;
@@ -235,8 +234,6 @@ body{
 }
 
 .bodega{
-    width: 45%;
-    min-width: 400px;
     height: auto;
     padding: 20px;
     color: #fff;

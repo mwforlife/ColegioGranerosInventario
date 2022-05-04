@@ -25,7 +25,6 @@ if (count($lista)>0) {
     echo "<th>Estado</th>";
     echo "<th>Ubicación</th>";
     echo "<th>Tipo</th>";
-    echo "<th>Estado</th>";
     echo "<th>Status</th>";
     echo "<th>Detalles</th>";
     echo "<tr>";
@@ -39,7 +38,6 @@ if (count($lista)>0) {
         echo "<td>".$CGC->getEstado()."</td>";
         echo "<td>".$CGC->getUbicacion()."</td>";
         echo "<td>".$CGC->getTipo()."</td>";
-        echo "<td>".$CGC->getEstado()."</td>";
         echo "<td>".$CGC->getStatus()."</td>";
         echo "<td><span class='badge bg-success'><a href='#' type='button' data-bs-toggle='modal' data-bs-target='#modaldetails' onclick='details(".$CGC->getId().")'><img src='../img/svg__icon/details.svg' alt=''></a></span></td>";
         echo "</tr>";
