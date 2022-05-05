@@ -288,6 +288,28 @@ include '../Model/CGPrestamos.php';
             return $lista;
         }
 
+        public function ListarComponentesPorUbicacion($ubicacion){
+            $this->conexion();
+            $sql = "SELECT id_comp, folio_comp, nom_comp, nom_ubi, descripcion, observacion, nom_tip_comp, nom_est_comp, nom_sta_comp FROM CGComponentes,CGUbicacion, CGTipoComponente, EstadoComponentes, StatusComponentes WHERE CGComponentes.id_ubi = CGUbicacion.id_ubi AND CGComponentes.id_tip_comp = CGTipoComponente.id_tip_comp AND CGComponentes.id_est_comp = EstadoComponentes.id_est_comp AND CGComponentes.id_sta_comp = StatusComponentes.id_sta_comp and CGComponentes.id_ubi = '$ubicacion' order by nom_comp";
+            $resultado = $this->mi->query($sql);
+            $lista = array();
+            while($rs = mysqli_fetch_array($resultado)){
+                $id = $rs['id_comp'];
+                $folio = $rs['folio_comp'];
+                $nom = $rs['nom_comp'];
+                $ubi = $rs['nom_ubi'];
+                $descripcion = $rs['descripcion'];
+                $observacion = $rs['observacion'];
+                $tip = $rs['nom_tip_comp'];
+                $est = $rs['nom_est_comp'];
+                $sta = $rs['nom_sta_comp'];
+                $comp = new CGComponentes($id, $folio, $nom, $ubi, $descripcion, $observacion, $tip, $est, $sta);
+                $lista[] = $comp;
+            }
+            $this->desconexion();
+            return $lista;
+        }
+
         public function ListarComponentesPorFolio($folio){
             $this->conexion();
             $sql = "SELECT * FROM CGComponentes WHERE folio_comp = '$folio'";
@@ -332,27 +354,7 @@ include '../Model/CGPrestamos.php';
             return $lista;
         }
 
-        public function ListarComponentesPorUbicacion($ubi){
-            $this->conexion();
-            $sql = "SELECT * FROM CGComponentes WHERE id_ubi = '$ubi'";
-            $resultado = $this->mi->query($sql);
-            $lista = array();
-            while($rs = mysqli_fetch_array($resultado)){
-                $id = $rs['id_comp'];
-                $folio = $rs['folio_comp'];
-                $nom = $rs['nom_comp'];
-                $ubi = $rs['id_ubi'];
-                $descripcion = $rs['descripcion'];
-                $observacion = $rs['observacion'];
-                $tip = $rs['id_tip_comp'];
-                $est = $rs['id_est_comp'];
-                $sta = $rs['id_sta_comp'];
-                $comp = new CGComponentes($id, $folio, $nom, $ubi, $descripcion, $observacion, $tip, $est, $sta);
-                $lista[] = $comp;
-            }
-            $this->desconexion();
-            return $lista;
-        }
+       
 
         public function ListarComponentesPorTipo($tip){
             $this->conexion();

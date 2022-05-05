@@ -241,7 +241,7 @@ require_once '../controller/controller.php';
                 </div>
                 
                 
-                <div class="bodega container__bg col-md-12 col-lg-12 col-xl-5">
+                <div class="bodega container__bg col-md-12 col-lg-12 col-xl-6">
                     <h3 class="card__title text-white">Componentes en bodega</h3>
                     <table class="table table-dark table-striped table-responsive text-center">
                         <thead >
@@ -1013,7 +1013,7 @@ require_once '../controller/controller.php';
 
     <!-- Modal modal Reporte-->
     <div class="modal fade" id="modalreport" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-md">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><img src="../img/svg__icon/report.svg">Reportes</h5>
@@ -1021,10 +1021,10 @@ require_once '../controller/controller.php';
             </div>
             <div class="modal-body">            
             <div class="row justify-content-center">
-                <div class="col-md-12 d-flex flex-column justify-content-center align-items-center">
-                    <a target="_blank" href="../reportes/ComponentList.php" class="btn btn-success btn-lg btn-block w-100">Listar todos los componentes</a>
-                    <a target="_blank" href="../reportes/ComponentBodega.php" class="btn btn-secondary btn-lg btn-block w-100">Componentes en Bodega</a>
-                    <a target="_blank" href="../reportes/ComponentPrestamo.php" class="btn btn-danger btn-lg btn-block w-100">Componentes en Prestamo</a>
+                <div class="col-md-12 d-flex flex-wrap justify-content-between align-items-center">
+                    <a target="_blank" href="../reportes/ComponentList.php" class="btn btn-success btn-lg btn-block ">Listar todos los componentes</a>
+                    <a target="_blank" href="../reportes/ComponentBodega.php" class="btn btn-secondary btn-lg btn-block ">Componentes en Bodega</a>
+                    <a target="_blank" href="../reportes/ComponentPrestamo.php" class="btn btn-danger btn-lg btn-block w-74">Componentes en Prestamo</a>
                 </div>
             </div>
 
@@ -1045,27 +1045,52 @@ require_once '../controller/controller.php';
                 </div>
             </div>
 
-            <form id="FormReporte" target="_blank" method="post" action="../reportes/ComponentType.php">
+            
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="">Seleccione el tipo de componente </label>
-                            <select class="form-control" id="tipo" name="tipo">
-                                <?php
-                                $lista = $c->ListarTipoComponente();
-                                if (count($lista)>0) {
-                                    for ($i=0; $i < count($lista); $i++) {
-                                        $CGP = $lista[$i];
-                                        echo "<option value='".$CGP->getId()."'>".$CGP->getNombre()."</option>";
+                    <div class="col-md-6">
+                        <form id="FormReporte" target="_blank" method="post" action="../reportes/ComponentType.php">
+                            <h4 class=" text-center card-title">Listar Componentes por tipo</h4>
+                            <div class="form-group">
+                                <label for="">Seleccione el tipo de componente </label>
+                                <select class="form-control" id="tipo" name="tipo">
+                                    <?php
+                                    $lista = $c->ListarTipoComponente();
+                                    if (count($lista)>0) {
+                                        for ($i=0; $i < count($lista); $i++) {
+                                            $CGP = $lista[$i];
+                                            echo "<option value='".$CGP->getId()."'>".$CGP->getNombre()."</option>";
+                                        }
                                     }
-                                }
-                                ?>
-                            </select>
-                            <button type="submit" class="btn btn-lg btn-success btn-block w-100">Imprimir</button>
-                        </div>
-                    </div>    
+                                    ?>
+                                </select>
+                                <hr class="my-4"/>
+                                <button type="submit" class="btn btn-lg btn-success btn-block w-100">Imprimir</button>
+                            </div>
+                            
+                        </form>
+                    </div>  
+                    <div class="col-md-6">
+                        <form id="" target="_blank" method="post" action="../reportes/ComponentUbicacion.php">
+                            <h4 class=" text-center card-title">Listar Componentes por Ubicacion</h4>
+                            <div class="form-group">
+                                <label for="">Seleccione el tipo de componente </label>
+                                <select class="form-control" id="ubicacionName" name="ubicacionName">
+                                    <?php
+                                    $lista = $c->ListarUbicacion();
+                                    if (count($lista)>0) {
+                                        for ($i=0; $i < count($lista); $i++) {
+                                            $CGP = $lista[$i];
+                                            echo "<option value='".$CGP->getId()."'>".$CGP->getNombre()."</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                <hr class="my-4"/>
+                                <button type="submit" class="btn btn-lg btn-success btn-block w-100">Imprimir</button>
+                            </div>
+                        </form>
+                    </div>   
                 </div>
-            </form>
             
             <div class="modal-footer">
             </div>

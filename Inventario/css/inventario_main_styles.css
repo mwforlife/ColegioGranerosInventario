@@ -217,8 +217,7 @@ body{
     display: flex;
     width: 100%;
     flex-wrap: wrap;
-    column-gap: 2em;
-    gap: 3em;
+    row-gap: 2em;
     margin-top: 20px;
     justify-content: space-between
 }
