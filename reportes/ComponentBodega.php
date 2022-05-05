@@ -43,6 +43,7 @@ for ($i=0; $i < count($lista); $i++) {
     $pdf->Cell(80,12,$t->getUbicacion(),1,0,'C',1);
 }
 }
+$fecha = date('m-d-Y h:i:s', time());
 
-$pdf->Output('I','reporte.pdf');
+$pdf->Output('I','reporte-'.$fecha.'.pdf');
 ?>

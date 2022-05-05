@@ -10,10 +10,6 @@ $pdf = new PDF('L','mm',array(90,180));
 $pdf->AddPage('L','A4',0);
 $pdf->AliasNbPages();
 
-$fecha = date('m-d-Y h:i:s a', time());
-$pdf->SetFont('Arial','I',10);
-$pdf->Cell(200);
-$pdf->Cell(30,5,"Fecha Generada: $fecha",0,1,'C');
 
 $pdf->SetFont('Arial','B',18);
 $pdf->Cell(95);
@@ -53,5 +49,6 @@ for ($i=0; $i < count($lista); $i++) {
     $pdf->Cell(40,12,$t->getStatus(),1,1,'C',1);
 }
 }
+$fecha = date('m-d-Y h:i:s', time());
 
-$pdf->Output('I','reporte.pdf');
+$pdf->Output('I','reporte-'.$fecha.'.pdf');

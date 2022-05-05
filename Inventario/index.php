@@ -25,19 +25,16 @@ require_once '../controller/controller.php';
     <link rel="stylesheet" href="../css/jquery.animatedheadline.css">
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/bootstrap.css">
-    <link rel="stylesheet" href="css/Datables_bootstap.css">
     <link rel="stylesheet" href="css/inventario_main_styles.css">
+    <link rel="stylesheet" href="../DataTables/datatables.min.css">
 </head>
 <body>
 
 
-<script src="../js/jquery-3.6.0.js"></script>
+<script src="../DataTables/jQuery-3.6.0/jquery-3.6.0.min.js"></script>
     <script src="../js/anime.min.js"></script>
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/sweetalert2.all.min.js"></script>
-    <script src="js/Databales_bootstap5.js"></script>
-    <script src="js/jquery.dataTables.js"></script>
-    <script src="js/inventario_main_js.js"></script>
     <script src="../js/MooTools-Core-1.6.0.js"></script>
     <script src="../js/process/inventario__insert__process.js"></script>
     <script src="../js/process/inventario__list__process.js"></script>
@@ -45,6 +42,8 @@ require_once '../controller/controller.php';
     <script src="../js/process/inventario__modify__process.js"></script>
     <script src="../js/process/Inventario__details__component.js"></script>
     <script src="../js/process/invertario__search__process.js"></script>
+    <script src="../DataTables/datatables.min.js"></script>
+    <script src="js/inventario_main_js.js"></script>
 
 
 
@@ -154,7 +153,7 @@ require_once '../controller/controller.php';
                
                 <div class="recientes container__bg card col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <h3 class="card__title text-white">Componentes</h3>
-                    <table id="recent-component" class="table table-dark table-striped text-center">
+                    <table id="recent-component" class="table table-dark table-striped text-center table-hover">
                        <thead>
                         <tr>
                             <th>ID</th>
@@ -207,7 +206,7 @@ require_once '../controller/controller.php';
             <div class="componentes row">
                 <div class="card col-md-12 col-lg-12 col-xl-6 container__bg content">
                    <h3 class="card__title text-white">Componentes en Prestamos</h3>
-                    <table class="table table-dark table-striped">
+                    <table id="component-prestamos" class="table table-dark table-striped table-hover">
                         <thead>
                            <tr>
                             <th>ID</th>
@@ -243,7 +242,7 @@ require_once '../controller/controller.php';
                 
                 <div class="bodega container__bg col-md-12 col-lg-12 col-xl-6">
                     <h3 class="card__title text-white">Componentes en bodega</h3>
-                    <table class="table table-dark table-striped table-responsive text-center">
+                    <table id="component-bodega" class="table table-hover table-dark table-striped table-responsive text-center">
                         <thead >
                             <tr>
                                 <th>Folio</th>
@@ -275,9 +274,9 @@ require_once '../controller/controller.php';
                     </table>
                 </div>
                 
-                <div class="card col-md-12 col-lg-12 col-xl-12 container__bg content">
+                <div  class="card col-md-12 col-lg-12 col-xl-12 container__bg content">
                    <h3 class="card__title text-white">Componentes dado de baja</h3>
-                    <table class="table table-dark table-striped">
+                    <table id="component-baja" class="table table-dark table-striped table-hover">
                         <thead>
                            <tr>
                             <th>ID</th>
@@ -411,7 +410,7 @@ require_once '../controller/controller.php';
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       <table class="table table-dark table-striped text-center">
+       <table id="recent-component1" class="table table-hover table-dark table-striped text-center">
                        <thead>
                         <tr>
                             <th>ID</th>
@@ -514,7 +513,7 @@ require_once '../controller/controller.php';
       <div class="modal-body">
        <div class="row">
            <div class="col">
-           <table class="table table-dark table-striped">
+           <table id="table-docente" class="table table-hover table-dark table-striped">
                <thead>
                    <tr>
                        <th>Nombre</th>
@@ -543,8 +542,6 @@ require_once '../controller/controller.php';
        
       </div>
       <div class="modal-footer">
-       <button type="reset" class="btn btn-warning">Restablecer</button>
-        <button type="submit" class="btn btn-success">Registrar</button>
       </div>
           
       
@@ -631,7 +628,7 @@ require_once '../controller/controller.php';
         <hr class="w-100">
       <div class="row">
           <div class="col-md-12">
-              <table id="tabla__ubicacion" class="table table-dark table-striped caption-top text-center">
+              <table id="tabla__ubicacion" class="table table-hover table-dark table-striped caption-top text-center">
                 <caption>Lista de Ubicaciones</caption>
                   <thead>
                       <tr>
@@ -693,7 +690,7 @@ require_once '../controller/controller.php';
                 <hr class="w-100">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-dark table-striped caption-top">
+                    <table id="table-tipocomponent" class="table table-hover table-dark table-striped caption-top">
                         <caption>Lista de Tipos de componentes</caption>
                         <thead>
                             <tr>
@@ -756,7 +753,7 @@ require_once '../controller/controller.php';
                 <hr class="w-100">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-dark table-striped caption-top">
+                    <table id="table-estadocomponent" class="table table-hover table-dark table-striped caption-top">
                         <caption>Lista de Estado de componentes</caption>
                         <thead>
                             <tr>
@@ -819,8 +816,8 @@ require_once '../controller/controller.php';
                 <hr class="w-100">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-dark table-striped caption-top">
-                        <caption>Lista de Tipos de componentes</caption>
+                    <table id="table-statuscomponent" class="table table-hover table-dark table-striped caption-top">
+                        <caption>Lista Status de componentes</caption>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -928,7 +925,7 @@ require_once '../controller/controller.php';
                 <hr class="w-100">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-dark table-striped caption-top">
+                    <table id="table-prestamos" class="table table-hover table-dark table-striped caption-top">
                         <caption>Listado de Prestamos</caption>
                         <thead>
                             <tr>
@@ -1032,7 +1029,9 @@ require_once '../controller/controller.php';
             if ($_SESSION['tipo']=='Administrador') {
                 echo '<div class="row justify-content-center">
                     <div class="col-md-12 d-flex flex-column justify-content-center align-items-center">
-                        <a target="_blank" href="../reportes/Userlist.php" class="btn btn-warning btn-lg btn-block w-100">Listar todos los Usuaios</a>
+                        <a target="_blank" href="../reportes/Userlist.php" class="btn btn-warning btn-lg btn-block w-100">Listar todos los Usuarios</a>
+                        <a target="_blank" href="../reportes/Docentlist.php" class="btn btn-primary btn-lg btn-block w-100">Listar todos los Docentes</a>
+
                     </div>
                 </div>';
             }
@@ -1103,7 +1102,7 @@ require_once '../controller/controller.php';
 
        <!-- Modal Registrar Usuarios-->
 <div class="modal fade" id="registrarusuarios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title"><img src="../img/svg__icon/user1.svg" alt="">Registrar Usuario</h5>
@@ -1155,7 +1154,7 @@ require_once '../controller/controller.php';
       <div class="modal-footer justify-content-center">
           <div class="row justify-content-center">
               <div class="col-md-12 d-flex justify-content-center">
-              <table class="table table-dark table-striped">
+              <table id="table-usuarios" class="table table-hover table-dark table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>

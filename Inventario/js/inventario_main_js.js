@@ -1,6 +1,16 @@
 $(document).ready(function() {
-    $('.table').DataTable();
     $("#tabla__ubicacion").DataTable();
+    $("#recent-component").DataTable();
+    $("#recent-component1").DataTable();
+    $("#component-prestamos").DataTable();
+    $("#component-bodega").DataTable();
+    $("#component-baja").DataTable();
+    $("#table-docente").DataTable();
+    $("#table-tipocomponent").DataTable();
+    $("#table-estadocomponent").DataTable();
+    $("#table-statuscomponent").DataTable();
+    $("#table-prestamos").DataTable();
+    $("#table-usuarios").DataTable();
     } 
 );
 

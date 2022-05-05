@@ -55,5 +55,6 @@ for ($i=0; $i < count($lista); $i++) {
     $pdf->Cell(40,12,$t->getStatus(),1,1,'C',1);
 }
 }
+$fecha = date('m-d-Y h:i:s', time());
 
-$pdf->Output('I','reporte.pdf');
+$pdf->Output('I','reporte-'.$fecha.'.pdf');
