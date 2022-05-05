@@ -4,7 +4,7 @@ include 'fpdf/fpdf.php';
 class PDF extends FPDF{
     function Header(){
         $this->AddLink();
-        $this->Image('plantillas/log.png',10,10,35,0,'','www.colegiograneros.cl/Inventario');
+        $this->Image('Plantillas/log.png',10,10,35,0,'','www.colegiograneros.cl/Inventario');
         $this->SetFont('Arial','B',18);
         $this->Cell(120);
         $this->Cell(30,10,'Colegio Graneros',0,1,'C');

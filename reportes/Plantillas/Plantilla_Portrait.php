@@ -4,7 +4,7 @@ include 'fpdf/fpdf.php';
 class PDF extends FPDF{
     function Header(){
         $this->AddLink();
-        $this->Image('plantillas/log.png',10,10,55,0,'','www.wilkenstech.host');
+        $this->Image('Plantillas/log.png',10,10,55,0,'','www.wilkenstech.host');
         $this->SetFont('Arial','B',18);
         $this->Cell(80);
         $this->Cell(30,10,'AHD Hairdresser Manager',0,1,'C');
