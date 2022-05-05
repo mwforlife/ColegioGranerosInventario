@@ -1,6 +1,6 @@
 <?php
 include('Plantillas/Plantilla_Landscape.php');
-include('../controller/Controller.php');
+include('../controller/controller.php');
 
 $ubicacion = $_POST['ubicacionName'];
 

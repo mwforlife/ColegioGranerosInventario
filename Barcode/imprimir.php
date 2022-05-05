@@ -1,5 +1,5 @@
 <?php
-	include 'plantillas/Plantilla_Portrait.php';
+	include 'Plantillas/Plantilla_Portrait.php';
 	include 'barcode.php';
 
 	$tipo = $_POST['type'];

@@ -1,5 +1,5 @@
 <?php
-	include 'plantillas/Plantilla_Portrait.php';
+	include 'Plantillas/Plantilla_Portrait.php';
 	include 'barcode.php';
 
 	$tipoJson = json_decode($_GET['type']);
