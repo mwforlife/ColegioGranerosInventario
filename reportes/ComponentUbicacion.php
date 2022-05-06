@@ -40,7 +40,7 @@ $pdf->Cell(75,12,count($lista),'B',1,'R',0);
 if ($lista==null) {
     $pdf->SetFont('Arial','',12);
     $pdf->Cell(7);
-    $pdf->Cell(260,12,'No hay Registros en la base de datos',1,0,'C',1);
+    $pdf->Cell(270,12,'No hay Registros en la base de datos',1,0,'C',1);
 }else{
 //Cuerpo de la tabla
 for ($i=0; $i < count($lista); $i++) { 
