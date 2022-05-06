@@ -10,10 +10,6 @@ $pdf = new PDF('L','mm',array(90,180));
 $pdf->AddPage('L','A4',0);
 $pdf->AliasNbPages();
 
-$fecha = date('m-d-Y h:i:s a', time());
-$pdf->SetFont('Arial','I',10);
-$pdf->Cell(200);
-$pdf->Cell(30,5,"Fecha Generada: $fecha",0,1,'C');
 
 $pdf->SetFont('Arial','B',18);
 $pdf->Cell(95);
@@ -23,11 +19,11 @@ $pdf->Cell(75,12,'Listado de Componentes','B',1,'R',0);
 $pdf->SetFillColor(232,232,230);
 $pdf->SetFont('Times','B',14);
 $pdf->Cell(7);
-$pdf->Cell(40,12,'Identificador',1,0,'C',1);
+$pdf->Cell(30,12,'Identificador',1,0,'C',1);
 $pdf->Cell(60,12,'Componentes',1,0,'C',1);
-$pdf->Cell(40,12,'Estado',1,0,'C',1);
-$pdf->Cell(40,12,'Ubicacion',1,0,'C',1);
-$pdf->Cell(40,12,'Tipo',1,0,'C',1);
+$pdf->Cell(30,12,'Estado',1,0,'C',1);
+$pdf->Cell(50,12,'Ubicacion',1,0,'C',1);
+$pdf->Cell(50,12,'Tipo',1,0,'C',1);
 $pdf->Cell(40,12,'Status',1,0,'C',1);
 
 
@@ -45,13 +41,14 @@ for ($i=0; $i < count($lista); $i++) {
     $t = $lista[$i];
     $pdf->SetFont('Arial','',12);
     $pdf->Cell(7);
-    $pdf->Cell(40,12,$t->getId(),1,0,'C',1);
+    $pdf->Cell(30,12,$t->getId(),1,0,'C',1);
     $pdf->Cell(60,12,$t->getNombre(),1,0,'C',1);
-    $pdf->Cell(40,12,$t->getEstado(),1,0,'C',1);
-    $pdf->Cell(40,12,$t->getUbicacion(),1,0,'C',1);
-    $pdf->Cell(40,12,$t->getTipo(),1,0,'C',1);
+    $pdf->Cell(30,12,$t->getEstado(),1,0,'C',1);
+    $pdf->Cell(50,12,$t->getUbicacion(),1,0,'C',1);
+    $pdf->Cell(50,12,$t->getTipo(),1,0,'C',1);
     $pdf->Cell(40,12,$t->getStatus(),1,1,'C',1);
 }
 }
+$fecha = date('m-d-Y h:i:s', time());
 
-$pdf->Output('I','reporte.pdf');
+$pdf->Output('I','reporte-'.$fecha.'.pdf');

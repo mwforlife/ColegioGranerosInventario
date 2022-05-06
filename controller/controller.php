@@ -54,7 +54,7 @@ include '../Model/CGPrestamos.php';
      public function ListarUsuarios()
      {
          $this->conexion();
-         $sql = "SELECT id_usu,nom_usu,ape_usu,correo,log_usu, pas_usu, nom_tip, toten, modified FROM CGuser,CGTipo_usuario WHERE CGUser.id_tip=CGTipo_usuario.id_tip";
+         $sql = "SELECT id_usu,nom_usu,ape_usu,correo,log_usu, pas_usu, nom_tip, toten, modified FROM CGuser,CGTipo_usuario WHERE CGuser.id_tip=CGTipo_usuario.id_tip";
          $result = $this->mi->query($sql);
          $lista = array();
          while($rs = mysqli_fetch_array($result))
