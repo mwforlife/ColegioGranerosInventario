@@ -1,4 +1,3 @@
-
 <?php
 include('Plantillas/Plantilla_Landscape.php');
 include('../controller/controller.php');

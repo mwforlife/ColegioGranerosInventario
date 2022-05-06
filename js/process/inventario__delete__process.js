@@ -36,7 +36,7 @@ function delete__docente(id){
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         $.ajax({
-          url: '../view/Delete__CGCDocente.php',
+          url: '../view/Delete__CGDocente.php',
           type: 'POST',
           data: 'id='+id,
           success: function(datos) {
